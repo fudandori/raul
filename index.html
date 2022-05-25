@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        canvas {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="cnv" width="700" height="700"></canvas>
+    <script>
+        const c = document.getElementById("cnv")
+        const ctx = c.getContext("2d")
+        const l = 100
+        const r = 40
+
+        for (let x = 0; x < 7; x++) {
+            for (let y = 0; y < 7; y++) {
+                draw(x, y, '#ffffff')
+            }
+
+        }
+
+        c.addEventListener("click", (ev) => {
+            select(c, ev)
+        })
+
+
+        function select(canvas, event) {
+            const rect = canvas.getBoundingClientRect()
+            const left = event.clientX - rect.left
+            const top = event.clientY - rect.top
+
+            const [x, y] = [Math.floor(left / 100), Math.floor(top / 100)]
+
+            draw(x,y,'#ffff00')     
+        }
+
+        function draw(x, y, hex) {
+            ctx.fillStyle = hex
+            ctx.beginPath();
+            ctx.arc(l/2 + x * l, l/2 + y * l, r, 0, 2 * Math.PI, false);
+            ctx.stroke();
+            ctx.fill()
+        }
+    </script>
+</body>
+
+</html>
